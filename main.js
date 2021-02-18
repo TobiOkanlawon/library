@@ -1,4 +1,4 @@
-const myLibrary = [
+let myLibrary = [
   {
     title: "Pride and Prejudice",
     author: "Jane Austen",
@@ -20,10 +20,17 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-function handleSubmit() {
+function handleNewBook(e) {
+  e.preventDefault();
   Book.fromForm(bookForm);
+  clearForm();
+}
 
-  return false;
+function clearForm() {
+  bookForm.title.value = "";
+  bookForm.author.value = "";
+  bookForm.pages.value = "";
+  bookForm["has-read"].checked = false;
 }
 
 class Book {
@@ -51,19 +58,47 @@ class Book {
   }
 }
 
-function deleteBook() {}
+function toggleRead(id, library) {}
+
+function deleteBookFunction(id, library) {
+  const newLibrary = library.filter((_, index) => index !== id);
+
+  // change this to not mutate a global variable
+  myLibrary = newLibrary;
+  showBooks(myLibrary, libraryDiv);
+}
 
 function showBooks(library, libraryContainer) {
   libraryContainer.innerHTML = "";
-  for (let book of library) {
+  for (let i = 0; i < library.length; i++) {
+    const book = library[i];
+
     const bookDiv = document.createElement("div");
     bookDiv.setAttribute("class", "book-card");
+    bookDiv.setAttribute("data-index", i);
+
     const bookTitle = document.createElement("p");
     bookTitle.innerText = book.title;
     bookDiv.appendChild(bookTitle);
+
+    const toggleRead = document.createElement("button");
+    toggleRead.innerText = "Delete";
+    toggleRead.addEventListener("click", () => {
+      deleteBookFunction(i, library);
+    });
+
+    bookDiv.appendChild(deleteButton);
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", () => {
+      deleteBookFunction(i, library);
+    });
+
+    bookDiv.appendChild(deleteButton);
+
     libraryContainer.appendChild(bookDiv);
   }
 }
 
 showBooks(myLibrary, libraryDiv);
-bookForm.addEventListener("submit", handleSubmit);
+bookForm.addEventListener("submit", handleNewBook);
