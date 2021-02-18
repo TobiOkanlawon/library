@@ -1,0 +1,23 @@
+#library {
+  display: flex;
+  padding: 10px;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 20%;
+  border: 1px solid black;
+  margin-right: 20px;
+
+  color: black;
+  background-color: cornsilk;
+}
+
+button {
+}
+
+.book-title {
+  font-size: large;
+}
