@@ -58,12 +58,21 @@ class Book {
   }
 }
 
-function toggleRead(id, library) {}
+function toggleReadFunction(id, library) {
+  const newLibrary = library.map((book, index) => {
+    if (index == id) book.hasRead = !book.hasRead;
+    return book;
+  });
+
+  // change this to not mutate a global variable.
+  myLibrary = newLibrary;
+  showBooks(myLibrary, libraryDiv);
+}
 
 function deleteBookFunction(id, library) {
   const newLibrary = library.filter((_, index) => index !== id);
 
-  // change this to not mutate a global variable
+  // change this to not mutate a global variable.
   myLibrary = newLibrary;
   showBooks(myLibrary, libraryDiv);
 }
@@ -79,15 +88,29 @@ function showBooks(library, libraryContainer) {
 
     const bookTitle = document.createElement("p");
     bookTitle.innerText = book.title;
+
     bookDiv.appendChild(bookTitle);
 
-    const toggleRead = document.createElement("button");
-    toggleRead.innerText = "Delete";
-    toggleRead.addEventListener("click", () => {
-      deleteBookFunction(i, library);
+    const bookAuthor = document.createElement("p");
+    bookAuthor.innerText = book.author;
+
+    bookDiv.appendChild(bookAuthor);
+
+    const hasRead = document.createElement("p");
+    hasRead.innerText = book.hasRead
+      ? "This book has been read"
+      : "This book has yet to be read";
+
+    bookDiv.appendChild(hasRead);
+
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.innerText = book.hasRead ? "Has not read" : "Has read";
+    toggleReadButton.addEventListener("click", () => {
+      toggleReadFunction(i, library);
     });
 
-    bookDiv.appendChild(deleteButton);
+    bookDiv.appendChild(toggleReadButton);
+
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", () => {
