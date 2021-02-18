@@ -12,7 +12,8 @@ let myLibrary = [
     hasRead: false,
   },
 ];
-const libraryDiv = document.getElementById("library");
+const libraryDiv = document.getElementById("library-books");
+const libraryInfo = document.getElementById("library-info");
 const bookForm = document.getElementById("add-book-form");
 
 function addBookToLibrary(book) {
@@ -79,6 +80,11 @@ function deleteBookFunction(id, library) {
 
 function showBooks(library, libraryContainer) {
   libraryContainer.innerHTML = "";
+  libraryInfo.innerHTML = "";
+  const number = document.createElement("h2");
+  number.innerText = `There are ${library.length} books in the library`;
+  libraryInfo.appendChild(number);
+
   for (let i = 0; i < library.length; i++) {
     const book = library[i];
 
@@ -87,6 +93,7 @@ function showBooks(library, libraryContainer) {
     bookDiv.setAttribute("data-index", i);
 
     const bookTitle = document.createElement("p");
+    bookTitle.setAttribute("class", "book-title");
     bookTitle.innerText = book.title;
 
     bookDiv.appendChild(bookTitle);
@@ -105,6 +112,7 @@ function showBooks(library, libraryContainer) {
 
     const toggleReadButton = document.createElement("button");
     toggleReadButton.innerText = book.hasRead ? "Has not read" : "Has read";
+    toggleReadButton.setAttribute("class", "toggle");
     toggleReadButton.addEventListener("click", () => {
       toggleReadFunction(i, library);
     });
@@ -113,6 +121,7 @@ function showBooks(library, libraryContainer) {
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
+    deleteButton.setAttribute("class", "delete");
     deleteButton.addEventListener("click", () => {
       deleteBookFunction(i, library);
     });

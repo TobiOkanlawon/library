@@ -7,21 +7,32 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <h1>These are the books in the library</h1>
-    <div id="library"></div>
-    <div>
+    <h1>The Toby Grand Library</h1>
+    <div id="library">
+      <div id="library-info"></div>
+      <div id="library-books"></div>
+    </div>
+
+    <div class="form-section">
       <h3>Create a book</h3>
       <form id="add-book-form">
         <label for="author">Who authored this book?</label>
+        <br />
         <input type="text" id="author" name="author" /> <br />
 
         <label for="title">What's the title of the book? </label>
+        <br />
+
         <input type="text" id="title" name="title" /><br />
 
         <label for="pages">How many pages does this book have?</label>
+        <br />
+
         <input type="number" id="pages" name="pages" /><br />
 
         <label for="has-read">Have you read this book?</label>
+        <br />
+
         <input type="checkbox" id="has-read" name="has-read" /><br />
 
         <button type="submit">Add this book to the Library</button>
