@@ -42,7 +42,7 @@ class Book {
     this.hasRead = hasRead;
   }
   info() {
-    return `The title of the book is ${this.title}, the author is ${this.author} 
+    return `The title of the book is ${this.title}, the author is ${this.author}
     and it has ${this.pages} pages.`;
   }
 
